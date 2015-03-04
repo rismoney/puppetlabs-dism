@@ -4,6 +4,8 @@ Puppet::Type.type(:dism).provide(:dism) do
   confine :operatingsystem => :windows
   defaultfor :operatingsystem => :windows
 
+  has_feature :refreshable
+
   commands :dism =>
                if File.exists? ("#{ENV['SYSTEMROOT']}\\sysnative\\Dism.exe")
                  "#{ENV['SYSTEMROOT']}\\sysnative\\Dism.exe"

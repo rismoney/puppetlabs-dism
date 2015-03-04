@@ -1,5 +1,8 @@
-Puppet::Type.newtype(:dism) do
+Puppet::Type.newtype(:dism, :self_refresh => true) do
   @doc = "Manages Windows features via dism."
+
+  feature :refreshable, "The provider can rerun dism.",
+    :methods => [:create]
 
   ensurable do
     desc "Windows feature install state."
@@ -39,4 +42,10 @@ Puppet::Type.newtype(:dism) do
     #defaultto([0, 3010])
     defaultto([0, 3010, 3010 & 0xFF])
   end
+
+  # if refreshing attempt to create
+  def refresh
+    provider.create
+  end
+
 end
